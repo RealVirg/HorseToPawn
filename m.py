@@ -16,15 +16,20 @@ class Figure:
         return self.name + '(' + str(dictionary_2[self.x]) + ', ' + str(self.y) + ')'
 
 
+def check_position(pc, pr):
+    if (pc[0] == pr.x + 1 and pc[1] == pr.y - 1) or (pc[0] == pr.x - 1 and pc[1] == pr.y - 1):
+        return False
+    return True
+
+
 # Здесь идет проверка на выход за пределы поля, попадания под удар и на посещенность в прошлые разы,
 # так же кладет следующий шаг в стек + в посещенные + односвязный список
 def checker(point, v, p, c, pa):
-    checkers = [(2, -1), (2, 1), (1, 2), (1, -2), (-2, -1), (-2, 1), (-1, 2), (-1, -2)]
+    checkers = [(-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2)]
     for check in checkers:
         b = (point[0] + check[0], point[1] + check[1])
-        if (b not in v and 0 < point[0] < 9 and 0 < point[1] < 9
-                and (point[0] + check[0] != pa.x + 1 and point[1] + check[1] != pa.y - 1)
-                and (point[0] + check[0] != pa.x - 1 and point[1] + check[1] != pa.y - 1)):
+        if (b not in v and 0 < point[0] + check[0] < 9 and 0 < point[1] + check[1] < 9
+                and check_position((point[0] + check[0], point[1] + check[1]), pa)):
             p.append(b)
             v.append(b)
             c[b] = point
