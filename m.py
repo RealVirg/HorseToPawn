@@ -16,6 +16,7 @@ class Figure:
         return self.name + '(' + str(dictionary_2[self.x]) + ', ' + str(self.y) + ')'
 
 
+# проверка на ход под атаку пешки
 def check_position(pc, pr):
     if (pc[0] == pr.x + 1 and pc[1] == pr.y - 1) or (pc[0] == pr.x - 1 and pc[1] == pr.y - 1):
         return False
